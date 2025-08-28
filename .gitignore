@@ -1,0 +1,21 @@
+# Entornos virtuales
+venv/
+.env
+
+# Archivos de compilación
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos de Django
+db.sqlite3
+media/
+staticfiles/
+
+# Archivos de Node
+node_modules/
+build/
+dist/
+
+# VSCode
+.vscode/
