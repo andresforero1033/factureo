@@ -8,3 +8,18 @@ python manage.py runserver
 git branch
 
 
+#Commint desde el main
+# Asegurarse de estar en main
+git checkout main
+git pull origin main
+
+# Añadir todos los cambios actuales
+git add .
+
+# Commit con mensaje descriptivo
+git commit -m "chore: consolidar backend inicial con users y facturas"
+
+# Subir cambios al repositorio remoto
+git push origin main
+
+
