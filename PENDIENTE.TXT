@@ -1,0 +1,39 @@
+2. Autenticación
+
+Endpoints para:
+
+Login
+
+Logout
+
+Registro de usuarios (opcionalmente con validación de email)
+
+Posible uso de JWT o sesiones para React.
+
+3. Validaciones y lógica de negocio
+
+Validar stock al crear facturas.
+
+Calcular total automáticamente en Factura.
+
+Manejo de errores en endpoints.
+
+4. Serializers (si usamos DRF)
+
+Serializar modelos Cliente, Producto, Factura para que React pueda consumirlos.
+
+5. Permisos y seguridad
+
+Solo usuarios autenticados pueden crear o modificar facturas/clientes/productos.
+
+Controlar acceso en endpoints según roles si se planea.
+
+6. Tests (opcional pero recomendado)
+
+Unit tests para:
+
+Modelos (CustomUser, Factura, etc.)
+
+Endpoints CRUD
+
+Autenticación

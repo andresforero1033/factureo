@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #Apps del proyecto
     'users', #App de usuarios
+    'facturas', #App de gestión de facturas
 ]
 
 MIDDLEWARE = [
