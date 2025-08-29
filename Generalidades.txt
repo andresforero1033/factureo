@@ -1,0 +1,10 @@
+#Servidor
+http://127.0.0.1:8000/admin/
+
+#correr el servidor
+python manage.py runserver
+
+#Para poder ver las ramas que tengo en mi entorno local.
+git branch
+
+
