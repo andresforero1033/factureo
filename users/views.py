@@ -1,16 +1,33 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from .models import CustomUser
 from .serializers import UserSerializer
 
-# ViewSet para CRUD de usuarios (protegido por defecto)
+# CRUD de usuarios (solo autenticados)
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]  # solo usuarios logueados pueden ver/editar usuarios
+    permission_classes = [IsAuthenticated]
 
-# Endpoint para registrar nuevos usuarios (acceso libre)
+# Registro de nuevos usuarios (acceso libre)
 class RegisterUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]  # cualquiera puede registrarse
+    permission_classes = [AllowAny]
+
+# Logout con JWT (blacklist)
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            # Recibir el refresh token enviado desde el frontend
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()  # Lo agrega a la blacklist
+            return Response({"detail": "Logout exitoso"}, status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
