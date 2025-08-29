@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     #Apps del proyecto
     'users', #App de usuarios
     'facturas', #App de gestión de facturas
+    'rest_framework', # App de Django REST Framework
 ]
 
 MIDDLEWARE = [
