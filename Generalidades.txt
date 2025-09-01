@@ -1,6 +1,9 @@
 #Servidor
 http://127.0.0.1:8000/admin/
 
+#Servidor REACT
+http://localhost:3000
+
 Username: factureo
 Email: admin@factureo.com
 Password: admin123

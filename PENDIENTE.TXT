@@ -1,14 +1,4 @@
-2. Autenticación
 
-Endpoints para:
-
-Login
-
-Logout
-
-Registro de usuarios (opcionalmente con validación de email)
-
-Posible uso de JWT o sesiones para React.
 
 3. Validaciones y lógica de negocio
 
