@@ -1,0 +1,9 @@
+.modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal.hidden { display: none; }
+.modal-content { background: var(--surface-dark); border: 1px solid var(--border-color); padding: 2rem; border-radius: 8px; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0, 240, 255, 0.05); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.btn-close { background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; }
+.btn-close:hover { color: var(--danger); }
+.modal-form { display: flex; flex-direction: column; gap: 1rem; }
+.modal-form input { background: var(--bg-dark); border: 1px solid var(--border-color); padding: 0.8rem; border-radius: 4px; color: var(--text-primary); font-size: 1rem; outline: none; transition: border-color 0.2s; }
+.modal-form input:focus { border-color: var(--accent-neon); }

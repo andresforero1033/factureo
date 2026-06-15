@@ -1,0 +1,15 @@
+# 1. Entrar a la carpeta del backend
+cd backend
+
+# 2. Crear el entorno virtual
+python -m venv venv
+
+# 3. Activar el entorno virtual en PowerShell
+.\venv\Scripts\activate
+
+# 4. Instalar las dependencias
+pip install -r requirements.txt
+
+# 5. Levantar el servidor
+uvicorn app.main:app --reload
+

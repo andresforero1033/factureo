@@ -1,0 +1,280 @@
+/* --- 1. IMPORTACIÓN DE MÓDULOS CSS --- */
+@import url('sidebar.css');
+@import url('card.css');
+@import url('modal.css');
+
+/* --- 2. VARIABLES GLOBALES (TOKENS) --- */
+:root {
+    --bg-dark: #000000;
+    --surface-dark: #121212;
+    --border-color: #333333;
+    --text-primary: #ffffff;
+    --text-secondary: #a3a3a3;
+    --accent-neon: #00f0ff;
+    --danger: #ff4757;
+}
+
+/* --- 3. RESET Y LAYOUT BASE --- */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+body { background-color: var(--bg-dark); color: var(--text-primary); }
+.layout { display: flex; min-height: 100vh; }
+.content { flex: 1; padding: 2rem; }
+
+/* --- 4. COMPONENTES DE USO GLOBAL --- */
+.topbar { display: flex; justify-content: space-between; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color); }
+.btn-primary { background: transparent; border: 1px solid var(--accent-neon); color: var(--accent-neon); padding: 0.5rem 1rem; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+.btn-primary:hover { background: var(--accent-neon); color: var(--bg-dark); }
+
+/* --- 5. TOASTS --- */
+.toast-container {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    z-index: 2000;
+    pointer-events: none;
+}
+
+.toast {
+    min-width: 280px;
+    max-width: 380px;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.96);
+    color: var(--text-primary);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-success {
+    border-color: rgba(0, 240, 255, 0.28);
+    box-shadow: 0 0 0 1px rgba(0, 240, 255, 0.12), 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.toast-error {
+    border-color: rgba(255, 71, 87, 0.35);
+}
+
+.toast-warning {
+    border-color: rgba(255, 196, 61, 0.35);
+}
+
+/* --- 6. CONFIRM DIALOG --- */
+.confirm-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(6px);
+    z-index: 2100;
+    padding: 1.25rem;
+}
+
+.confirm-dialog {
+    width: min(92vw, 460px);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(10, 16, 30, 0.99));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    padding: 1.25rem;
+}
+
+.confirm-dialog h3 {
+    margin: 0 0 0.5rem;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.confirm-dialog p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.confirm-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.btn-secondary,
+.btn-danger {
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: 0.2s ease;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-danger {
+    background: rgba(255, 71, 87, 0.12);
+    color: #ff8b94;
+    border-color: rgba(255, 71, 87, 0.35);
+}
+
+.btn-danger:hover {
+    background: rgba(255, 71, 87, 0.18);
+}
+
+/* --- 5. MODAL & GRID LAYOUT (NUEVO) --- */
+.modal-content {
+    width: min(98vw, 1400px);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(10, 16, 30, 0.99));
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
+}
+
+.modal-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* Los encabezados de sección ocupan toda la fila */
+.modal-form h4 {
+    grid-column: 1 / -1;
+    color: var(--accent-neon);
+    margin: 0.5rem 0 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.45rem;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Inputs y Selects dentro del modal */
+.modal-form input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    padding: 0.85rem 0.9rem;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.modal-form input::placeholder {
+    color: #7c8797;
+}
+
+.modal-form input:focus {
+    border-color: var(--accent-neon);
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Contenedor de la foto de perfil */
+.profile-upload-container {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+}
+
+#preview-img {
+    width: 88px;
+    height: 88px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 2px solid var(--accent-neon);
+    background: rgba(255, 255, 255, 0.04);
+    flex: 0 0 auto;
+}
+
+.profile-upload-container label {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+}
+
+.profile-upload-container input[type="file"] {
+    padding: 0.55rem;
+}
+
+.modal-form button[type="submit"] {
+    grid-column: 1 / -1;
+    margin-top: 0.35rem;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-header h2 {
+    font-size: 1.2rem;
+    letter-spacing: 0.01em;
+}
+
+.btn-close {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    font-size: 1.4rem;
+    cursor: pointer;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 10px;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.btn-close:hover {
+    color: var(--danger);
+    border-color: rgba(255, 71, 87, 0.45);
+    background: rgba(255, 71, 87, 0.08);
+}
+
+@media (max-width: 720px) {
+    .modal-content {
+        width: min(94vw, 960px);
+        padding: 1rem;
+    }
+
+    .modal-form {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-upload-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

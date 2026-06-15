@@ -1,0 +1,48 @@
+factureo/
+├── backend/                       # --- CAPA DE BACKEND (FastAPI) ---
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py                # Punto de entrada de la API y Middlewares
+│   │   ├── database.py            # Configuración de Motor y cliente MongoDB
+│   │   ├── config.py              # Variables de entorno y configuraciones globales
+│   │   ├── models/                # Esquemas y validaciones de datos (Pydantic)
+│   │   │   ├── __init__.py
+│   │   │   ├── employee.py
+│   │   │   └── contract.py
+│   │   ├── routes/                # Controladores / Endpoints (APIRouter)
+│   │   │   ├── __init__.py
+│   │   │   ├── employee.py
+│   │   │   └── contract.py
+│   │   └── services/              # Lógica de negocio y consultas a la DB
+│   │       ├── __init__.py
+│   │       ├── employee.py
+│   │       └── contract.py
+│   ├── .env                       # Variables de entorno secretas (MONGO_URI, etc.)
+│   ├── .gitignore
+│   └── requirements.txt           # Dependencias (fastapi, uvicorn, motor, pydantic[email])
+│
+├── frontend/                      # --- CAPA DE FRONTEND (Vanilla Architecture) ---
+│   ├── index.html                 # Punto de entrada único (Single Page Application o Shell)
+│   ├── style.css                  # Estilos globales y variables de diseño (Tokens CSS)
+│   └── src/
+│       ├── main.js                # Inicializador de la app y orquestador de vistas
+│       │
+│       ├── components/            # Componentes de UI Reutilizables (Mapeo 1:1 a React/Astro)
+│       │   ├── Sidebar.js         # Menú de navegación lateral
+│       │   ├── Topbar.js          # Barra superior con acciones de contexto
+│       │   ├── EmployeeCard.js    # Componente tarjeta para la grilla de empleados
+│       │   └── EmployeeModal.js   # Formulario flotante para crear/editar empleados
+│       │
+│       ├── pages/                 # Vistas o contenedores principales a nivel de página
+│       │   └── DashboardPage.js   # Vista del directorio general de RRHH
+│       │
+│       ├── services/              # Capa de infraestructura / Clientes de API (Fetch)
+│       │   ├── api.js             # Configuración base del cliente Fetch (Headers, Base URL)
+│       │   └── employeeService.js # Métodos HTTP específicos para la entidad Empleados
+│       │
+│       └── styles/                # Estilos modulares específicos (CSS encapsulado)
+│           ├── sidebar.css
+│           ├── card.css
+│           └── modal.css
+│
+└── README.md                      # Documentación general del sistema

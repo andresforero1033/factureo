@@ -1,0 +1,11 @@
+.sidebar { 
+    width: 250px; 
+    background-color: var(--surface-dark); 
+    border-right: 1px solid var(--border-color); 
+    padding: 2rem; 
+}
+.logo { font-size: 1.5rem; font-weight: bold; }
+.logo span { color: var(--accent-neon); }
+nav { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+nav a { color: var(--text-secondary); text-decoration: none; font-weight: 500; }
+nav a.active { color: var(--accent-neon); }
