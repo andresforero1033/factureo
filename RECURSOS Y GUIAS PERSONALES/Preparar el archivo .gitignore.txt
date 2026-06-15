@@ -1,0 +1,4 @@
+# Crea el archivo y añade las exclusiones necesarias
+echo ".env" >> .gitignore
+echo "__pycache__/" >> .gitignore
+echo "venv/" >> .gitignore
