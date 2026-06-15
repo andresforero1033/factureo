@@ -1,0 +1,12 @@
+Los 3 pasos de siempre:
+git add .
+
+Qué hace: Le dice a tu computadora: "Revisa todos los cambios que acabo de hacer y prepáralos".
+
+git commit -m "Aquí escribes qué hiciste"
+
+Qué hace: Guarda esos cambios en tu computadora con una etiqueta (el mensaje que pones entre comillas) para que sepas qué es cada cosa.
+
+git push
+
+Qué hace: Envía esos cambios a internet (a tu cuenta de GitHub).
