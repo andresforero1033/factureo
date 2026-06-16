@@ -1,0 +1,33 @@
+# 1. Crea y cámbiate a una nueva rama (ejemplo: 'modulo-empleados')
+git checkout -b modulo-empleados
+
+# 2. Haz tus cambios, programa y rompe todo lo que necesites
+# ... programa aquí ...
+
+# 3. Si todo funciona, guarda los cambios en ESA rama
+git add .
+git commit -m "Terminé el módulo de empleados"
+
+# 4. Cuando estés 100% seguro de que funciona, vuelve a main para unirlo
+git checkout main
+git merge modulo-empleados
+
+# 5. Si lo que hiciste fue un error y no sirve, ¡no hagas merge! 
+# Solo vuelve a main y elimina la rama fallida:
+git checkout main
+git branch -d modulo-empleados
+
+
+
+4. Consejos para tu caso (Factureo)
+Como has mencionado que el miedo a perder código es constante, sigue este "protocolo de seguridad":
+
+Nunca trabajes en main: Adopta la regla de crear una rama siempre que vayas a tocar algo.
+
+Si no estás seguro, haz un push de la rama: Puedes subir ramas a GitHub aunque no estén terminadas 
+(git push origin nombre-de-la-rama). Esto sirve como respaldo en la nube de tu trabajo a medio hacer.
+
+Merge solo al final: Solo une tu trabajo a main cuando hayas probado que el código hace lo que debe.
+
+Al usar ramas, si un día intentas algo arriesgado y tu código deja de compilar o se corrompe, simplemente 
+te cambias de rama: git checkout main, y verás que tu proyecto vuelve a la vida tal como estaba antes de tus experimentos.

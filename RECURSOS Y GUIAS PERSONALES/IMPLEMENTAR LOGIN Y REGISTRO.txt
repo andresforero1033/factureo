@@ -1,0 +1,18 @@
+Paso 1: Instalar las librerías
+pip install passlib[bcrypt] pyjwt
+
+Paso 2: Actualizar tus dependencias
+No olvides abrir tu archivo backend/requirements.txt y agregar estas dos líneas al final, para que tu entorno quede bien documentado:
+passlib[bcrypt]
+bcrypt==3.2.2
+
+pyjwt
+
+
+Paso 3: Crear los archivos
+
+backend/app/security.py (El que maneja la encriptación y el token).
+backend/app/models/user.py (El que define qué datos pedir para el registro).
+backend/app/routes/auth.py (Las rutas de /register y /login).
+backend/app/main.py (Donde agregamos app.include_router(auth.router)).
+

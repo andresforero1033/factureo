@@ -1,0 +1,5 @@
+{
+  "username": "andres_admin",
+  "email": "admin@factureo.com",
+  "password": "MiSuperPassword123"
+}

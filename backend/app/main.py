@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from app.routes import employee, contract
+from app.routes import employee, contract, auth # <-- AÑADIDO: auth
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 STATIC_DIR = BASE_DIR / "static"
@@ -27,3 +27,4 @@ app.add_middleware(
 
 app.include_router(employee.router)
 app.include_router(contract.router)
+app.include_router(auth.router) # <-- AÑADIDO: Rutas de login y registro
