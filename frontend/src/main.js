@@ -1,7 +1,14 @@
+import { authService } from './services/authService.js';
 import { renderSidebar } from './components/Sidebar.js';
 import { renderTopbar } from './components/Topbar.js';
 import { renderDashboard } from './pages/DashboardPage.js';
 import { initEmployeeModal } from './components/EmployeeModal.js';
+
+// --- BARRERA DE SEGURIDAD ---
+// Si el usuario no está autenticado (no tiene el token), lo devolvemos al login
+if (!authService.isAuthenticated()) {
+    window.location.replace('login.html');
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     
