@@ -14,10 +14,26 @@ export const authService = {
         }
 
         const data = await response.json();
-        // Guardamos el token en el almacenamiento del navegador
         localStorage.setItem('factureo_token', data.access_token);
         return data;
     },
+
+    // --- NUEVA FUNCIÓN DE REGISTRO ---
+    async register(username, email, password) {
+        const response = await fetch(`${AUTH_URL}/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Error al registrar usuario');
+        }
+
+        return await response.json();
+    },
+    // ---------------------------------
 
     logout() {
         localStorage.removeItem('factureo_token');

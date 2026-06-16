@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factureo | Crear Cuenta</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <link rel="stylesheet" href="src/styles/login.css">
+    <style>
+        /* Pequeño ajuste para el enlace de volver al login */
+        .auth-link {
+            display: block;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .auth-link:hover {
+            color: var(--accent-neon);
+        }
+        .success-message {
+            color: #10b981; /* Verde esmeralda para éxito */
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body class="login-layout">
+    
+    <div class="login-box">
+        <h1>Registro</h1>
+        <p>Crea tu cuenta de administrador en Factureo</p>
+        
+        <form id="register-form" class="login-form">
+            <input type="text" id="reg-username" placeholder="Nuevo Usuario" required autocomplete="off">
+            <input type="email" id="reg-email" placeholder="Correo Electrónico" required autocomplete="off">
+            <input type="password" id="reg-password" placeholder="Contraseña Segura" required>
+            
+            <button type="submit" class="login-btn">Crear Cuenta</button>
+            
+            <div id="register-error" class="login-error">Error al crear la cuenta</div>
+            <div id="register-success" class="success-message">¡Cuenta creada! Redirigiendo al login...</div>
+        </form>
+
+        <a href="login.html" class="auth-link">¿Ya tienes cuenta? Inicia sesión aquí</a>
+    </div>
+
+    <script type="module">
+        import { authService } from './src/services/authService.js';
+
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const user = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-password').value;
+            
+            const errorDiv = document.getElementById('register-error');
+            const successDiv = document.getElementById('register-success');
+            
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            try {
+                // Llamamos a la nueva función
+                await authService.register(user, email, pass);
+                
+                // Mostramos mensaje de éxito
+                successDiv.style.display = 'block';
+                
+                // Esperamos 2 segundos y lo enviamos al login para que entre
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+                
+            } catch (error) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = error.message;
+            }
+        });
+    </script>
+</body>
+</html>
