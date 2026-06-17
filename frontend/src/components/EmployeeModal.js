@@ -15,11 +15,23 @@ const DEFAULT_AVATAR = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
     </svg>
 `)}`;
 
-function resolveProfilePicture(path) {
-    if (!path) {
-        return null;
-    }
+const OPTIONS = {
+    departments: ["Tecnología", "Recursos Humanos", "Finanzas", "Operaciones", "Ventas", "Marketing"],
+    positions: ["Junior", "Mid", "Senior", "Líder de Proyecto", "Gerente", "Director"],
+    genders: ["Masculino", "Femenino", "Otro", "Prefiero no decir"],
+    civil_status: ["Soltero(a)", "Casado(a)", "Unión Libre", "Divorciado(a)", "Viudo(a)"],
+    blood_types: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+    eps: ["Sanitas", "Sura", "Nueva EPS", "Compensar", "Salud Total", "Famisanar", "Otra"],
+    allergies: ["Ninguna", "Penicilina", "Aines", "Alimentos", "Polen", "Otra"],
+    relationships: ["Padre/Madre", "Esposo(a)", "Hijo(a)", "Hermano(a)", "Amigo(a)", "Otro"]
+};
 
+const generateOptions = (list) => 
+    `<option value="">Seleccione...</option>` + 
+    list.map(item => `<option value="${item}">${item}</option>`).join('');
+
+function resolveProfilePicture(path) {
+    if (!path) return null;
     return path.startsWith('http') ? path : `${API_ROOT}${path}`;
 }
 
@@ -31,39 +43,40 @@ export function initEmployeeModal() {
                     <h2 id="modal-title">Registrar Nuevo Empleado</h2>
                     <button id="close-modal" class="btn-close">&times;</button>
                 </div>
-                    <form id="employee-form" class="modal-form">
+                <form id="employee-form" class="modal-form">
                     
                     <div class="profile-upload-container">
-                            <img id="preview-img" src="${DEFAULT_AVATAR}" alt="Perfil">
+                        <img id="preview-img" src="${DEFAULT_AVATAR}" alt="Perfil">
                         <div>
                             <label>Cambiar foto de perfil:</label>
-                                <input type="file" id="profile_pic_input" accept="image/*">
-                            </div>
+                            <input type="file" id="profile_pic_input" accept="image/*">
+                        </div>
                     </div>
 
                     <h4>Información Básica</h4>
                     <input type="text" id="first_name" placeholder="Nombre" required>
                     <input type="text" id="last_name" placeholder="Apellido" required>
                     <input type="email" id="email" placeholder="Correo Electrónico" required>
-                    <input type="text" id="department" placeholder="Departamento" required>
-                    <input type="text" id="position" placeholder="Cargo" required>
+                    <select id="department" required>${generateOptions(OPTIONS.departments)}</select>
+                    <select id="position" required>${generateOptions(OPTIONS.positions)}</select>
                     
                     <h4>Datos Personales</h4>
+                    <input type="tel" id="phone" placeholder="Teléfono Personal" required>
+                    <input type="text" id="address" placeholder="Dirección de Residencia" required>
                     <input type="date" id="birth_date" required>
-                    <input type="text" id="gender" placeholder="Género" required>
-                    <input type="text" id="civil_status" placeholder="Estado Civil" required>
+                    <select id="gender" required>${generateOptions(OPTIONS.genders)}</select>
+                    <select id="civil_status" required>${generateOptions(OPTIONS.civil_status)}</select>
                     <input type="text" id="id_number" placeholder="Número de Identificación" required>
 
                     <h4>Salud</h4>
-                    <input type="text" id="blood_type" placeholder="Tipo de Sangre" required>
-                    <input type="text" id="eps" placeholder="EPS" required>
-                    <input type="text" id="allergies" placeholder="Alergias (Opcional)">
+                    <select id="blood_type" required>${generateOptions(OPTIONS.blood_types)}</select>
+                    <select id="eps" required>${generateOptions(OPTIONS.eps)}</select>
+                    <select id="allergies" required>${generateOptions(OPTIONS.allergies)}</select>
 
                     <h4>Contacto y Familia</h4>
-                    <input type="tel" id="phone" placeholder="Teléfono" required>
-                    <input type="text" id="address" placeholder="Dirección" required>
-                    <input type="text" id="emergency_name" placeholder="Contacto Emergencia" required>
-                    <input type="tel" id="emergency_phone" placeholder="Teléfono Emergencia" required>
+                    <input type="text" id="emergency_name" placeholder="Nombre de contacto emergencia" required>
+                    <input type="tel" id="emergency_phone" placeholder="Número de contacto" required>
+                    <select id="emergency_relationship" required>${generateOptions(OPTIONS.relationships)}</select>
 
                     <button type="submit" class="btn-primary">Guardar Empleado</button>
                 </form>
@@ -85,7 +98,6 @@ export function initEmployeeModal() {
         previewImg.src = DEFAULT_AVATAR;
     }
 
-    // Previsualización inmediata al seleccionar archivo
     fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -104,7 +116,6 @@ export function initEmployeeModal() {
 
         let profileUrl = currentProfilePicture;
 
-        // 1. Subir imagen al servidor si se seleccionó un archivo nuevo
         if (fileInput.files.length > 0) {
             const formData = new FormData();
             formData.append('file', fileInput.files[0]);
@@ -114,26 +125,22 @@ export function initEmployeeModal() {
                     method: 'POST',
                     body: formData
                 });
-                if (!response.ok) {
-                    throw new Error('No se pudo subir la imagen');
-                }
+                if (!response.ok) throw new Error('No se pudo subir la imagen');
                 const data = await response.json();
                 profileUrl = data.url;
             } catch (err) {
-                console.error("Error subiendo imagen:", err);
                 showToast('No se pudo subir la imagen', 'error');
                 return;
             }
         }
 
-        // 2. Construir objeto de datos
         const employeeData = {
             first_name: document.getElementById('first_name').value,
             last_name: document.getElementById('last_name').value,
             email: document.getElementById('email').value,
             department: document.getElementById('department').value,
             position: document.getElementById('position').value,
-            profile_picture: profileUrl, // Guardamos la URL
+            profile_picture: profileUrl,
             contact_info: {
                 phone: document.getElementById('phone').value,
                 address: document.getElementById('address').value
@@ -151,7 +158,8 @@ export function initEmployeeModal() {
             },
             family_info: {
                 emergency_contact_name: document.getElementById('emergency_name').value,
-                emergency_contact_phone: document.getElementById('emergency_phone').value
+                emergency_contact_phone: document.getElementById('emergency_phone').value,
+                emergency_relationship: document.getElementById('emergency_relationship').value
             }
         };
 
@@ -185,26 +193,29 @@ export function openEmployeeModal(employee = null) {
         title.textContent = 'Editar Empleado';
         currentProfilePicture = resolveProfilePicture(employee.profile_picture);
 
-        // Cargar imagen existente o placeholder
         previewImg.src = currentProfilePicture || DEFAULT_AVATAR;
 
-        document.getElementById('first_name').value = employee.first_name;
-        document.getElementById('last_name').value = employee.last_name;
-        document.getElementById('email').value = employee.email;
-        document.getElementById('department').value = employee.department;
-        document.getElementById('position').value = employee.position;
-        document.getElementById('phone').value = employee.contact_info.phone;
-        document.getElementById('address').value = employee.contact_info.address;
+        document.getElementById('first_name').value = employee.first_name || '';
+        document.getElementById('last_name').value = employee.last_name || '';
+        document.getElementById('email').value = employee.email || '';
+        document.getElementById('department').value = employee.department || '';
+        document.getElementById('position').value = employee.position || '';
+        
+        document.getElementById('phone').value = employee.contact_info?.phone || '';
+        document.getElementById('address').value = employee.contact_info?.address || '';
 
         document.getElementById('birth_date').value = employee.personal_data?.birth_date || '';
         document.getElementById('gender').value = employee.personal_data?.gender || '';
         document.getElementById('civil_status').value = employee.personal_data?.civil_status || '';
         document.getElementById('id_number').value = employee.personal_data?.id_number || '';
+        
         document.getElementById('blood_type').value = employee.health_info?.blood_type || '';
         document.getElementById('eps').value = employee.health_info?.eps || '';
         document.getElementById('allergies').value = employee.health_info?.allergies || '';
+        
         document.getElementById('emergency_name').value = employee.family_info?.emergency_contact_name || '';
         document.getElementById('emergency_phone').value = employee.family_info?.emergency_contact_phone || '';
+        document.getElementById('emergency_relationship').value = employee.family_info?.emergency_relationship || '';
     } else {
         editingId = null;
         currentProfilePicture = null;

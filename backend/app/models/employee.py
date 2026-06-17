@@ -20,6 +20,7 @@ class HealthInfo(BaseModel):
 class FamilyInfo(BaseModel):
     emergency_contact_name: str
     emergency_contact_phone: str
+    emergency_relationship: Optional[str] = None  # <--- Este es el campo que faltaba
 
 class EmployeeCreate(BaseModel):
     first_name: str
@@ -32,7 +33,7 @@ class EmployeeCreate(BaseModel):
     personal_data: PersonalData
     health_info: HealthInfo
     family_info: FamilyInfo
-    profile_picture: Optional[str] = None # Nuevo campo
+    profile_picture: Optional[str] = None
 
 class EmployeeUpdate(BaseModel):
     first_name: Optional[str] = None
@@ -45,7 +46,7 @@ class EmployeeUpdate(BaseModel):
     personal_data: Optional[PersonalData] = None
     health_info: Optional[HealthInfo] = None
     family_info: Optional[FamilyInfo] = None
-    profile_picture: Optional[str] = None # Nuevo campo
+    profile_picture: Optional[str] = None
 
 class EmployeeResponse(EmployeeCreate):
     id: str
@@ -54,4 +55,4 @@ class EmployeeResponse(EmployeeCreate):
     personal_data: Optional[PersonalData] = None 
     health_info: Optional[HealthInfo] = None
     family_info: Optional[FamilyInfo] = None
-    profile_picture: Optional[str] = None # Nuevo campo
+    profile_picture: Optional[str] = None
