@@ -1,46 +1,113 @@
-.data-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+/* frontend/src/styles/card.css */
+
+.data-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 1.5rem; 
+}
+
+/* Tarjeta principal */
 .card {
-	background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(10, 16, 30, 0.98));
-	border: 1px solid var(--border-color);
-	padding: 1.25rem;
-	border-radius: 16px;
-	box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+    background: var(--surface-light);
+    border: 1px solid var(--border-color);
+    padding: 1.25rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.employee-card-header { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+
+/* Efecto al pasar el mouse por encima de la tarjeta */
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.employee-card-header { 
+    display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; 
+}
+
 .employee-avatar {
-	width: 64px;
-	height: 64px;
-	border-radius: 18px;
-	object-fit: cover;
-	border: 1px solid rgba(255, 255, 255, 0.08);
-	background: rgba(255, 255, 255, 0.04);
-	flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    object-fit: cover;
+    border: 2px solid #f1f5f9;
+    background: #f8fafc;
+    flex: 0 0 auto;
 }
-.employee-identity h3 { margin: 0; line-height: 1.15; }
-.employee-identity p { margin: 0.25rem 0 0.5rem; color: var(--text-secondary); font-size: 0.92rem; }
-.employee-meta { display: grid; gap: 0.35rem; }
-.employee-meta p { color: var(--text-secondary); font-size: 0.9rem; margin: 0; }
-.badge { display: inline-flex; align-items: center; width: fit-content; padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.75rem; }
-.badge.active { background: rgba(0, 240, 255, 0.1); color: var(--accent-neon); border: 1px solid var(--accent-neon); }
-.badge.inactive { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid #ff4757; }
-.card-actions { margin-top: 1.25rem; display: flex; gap: 0.5rem; }
+
+.employee-identity h3 { 
+    margin: 0; line-height: 1.15; color: var(--text-primary);
+}
+
+.employee-identity p { 
+    margin: 0.25rem 0 0.5rem; color: var(--text-secondary); font-size: 0.92rem; 
+}
+
+.employee-meta { 
+    display: grid; gap: 0.35rem; 
+}
+
+.employee-meta p { 
+    color: var(--text-secondary); font-size: 0.9rem; margin: 0; 
+}
+
+/* Etiquetas de Estado (Activo/Inactivo) */
+.badge { 
+    display: inline-flex; align-items: center; width: fit-content; 
+    padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.75rem; 
+    font-weight: 600;
+}
+
+.badge.active { 
+    background: #d1fae5; /* Verde muy claro */
+    color: var(--success); 
+    border: 1px solid #a7f3d0; 
+}
+
+.badge.inactive { 
+    background: #fee2e2; /* Rojo muy claro */
+    color: var(--danger); 
+    border: 1px solid #fecaca; 
+}
+
+/* Botones de acción (Editar y Eliminar) */
+.card-actions { 
+    margin-top: 1.25rem; display: flex; gap: 0.5rem; 
+}
+
 .card-actions button {
-	flex: 1;
-	border-radius: 10px;
-	padding: 0.55rem 0.8rem;
-	cursor: pointer;
-	font-size: 0.85rem;
-	font-weight: 600;
-	transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    flex: 1;
+    border-radius: 10px;
+    padding: 0.55rem 0.8rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
-.card-actions button:hover { transform: translateY(-1px); }
+
+.card-actions button:hover { 
+    transform: translateY(-1px); 
+}
+
 .btn-edit {
-	background: rgba(0, 240, 255, 0.06);
-	border: 1px solid var(--accent-neon);
-	color: var(--accent-neon);
+    background: #f0f9ff; /* Azul pastel */
+    border: 1px solid #bae6fd;
+    color: var(--accent-blue);
 }
+
+.btn-edit:hover {
+    background: #e0f2fe;
+    border-color: var(--accent-blue);
+}
+
 .btn-delete {
-	background: rgba(255, 71, 87, 0.06);
-	border: 1px solid var(--danger);
-	color: var(--danger);
+    background: #fef2f2; /* Rojo pastel */
+    border: 1px solid #fecaca;
+    color: var(--danger);
+}
+
+.btn-delete:hover {
+    background: #fee2e2;
+    border-color: var(--danger);
 }

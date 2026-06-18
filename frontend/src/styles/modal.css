@@ -1,27 +1,139 @@
 /* frontend/src/styles/modal.css */
-.modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-.modal.hidden { display: none; }
-.modal-content { background: var(--surface-dark); border: 1px solid var(--border-color); padding: 2rem; border-radius: 8px; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0, 240, 255, 0.05); }
-.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-.btn-close { background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; }
-.btn-close:hover { color: var(--danger); }
-.modal-form { display: flex; flex-direction: column; gap: 1rem; }
+
+/* Fondo oscuro translúcido detrás del modal */
+.modal { 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100vw; height: 100vh; 
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(4px); 
+    display: flex; justify-content: center; align-items: center; 
+    z-index: 1000; 
+}
+
+.modal.hidden { 
+    display: none; 
+}
+
+/* Caja principal del modal */
+.modal-content { 
+    background: var(--surface-light); 
+    border: 1px solid var(--border-color); 
+    padding: 2rem; 
+    border-radius: 12px; 
+    width: 100%; 
+    max-width: 900px; /* Más ancho para que quepan las 3 columnas */
+    box-shadow: var(--shadow-md); 
+    max-height: 90vh; 
+    overflow-y: auto;
+}
+
+/* Cabecera del modal */
+.modal-header { 
+    display: flex; justify-content: space-between; align-items: center; 
+    margin-bottom: 1.5rem; 
+    border-bottom: 1px solid var(--border-color); 
+    padding-bottom: 1rem; 
+}
+
+.modal-header h2 { 
+    font-size: 1.4rem; 
+    color: var(--text-primary); 
+    margin: 0; 
+}
+
+/* Botón de cerrar (X) */
+.btn-close { 
+    background: #f1f5f9; border: none; 
+    color: var(--text-secondary); 
+    font-size: 1.4rem; cursor: pointer; 
+    width: 2.25rem; height: 2.25rem; 
+    border-radius: 8px; 
+    transition: 0.2s; 
+    display: flex; align-items: center; justify-content: center; 
+}
+
+.btn-close:hover { 
+    color: var(--danger); 
+    background: #fee2e2; 
+}
+
+/* Formulario en Grid (3 columnas) */
+.modal-form { 
+    display: grid; 
+    grid-template-columns: repeat(3, minmax(0, 1fr)); 
+    gap: 1rem; 
+}
+
+/* Títulos de sección dentro del formulario */
+.modal-form h4 { 
+    grid-column: 1 / -1; 
+    color: var(--accent-blue); 
+    margin: 0.5rem 0 0; 
+    border-bottom: 2px solid #f1f5f9; 
+    padding-bottom: 0.45rem; 
+    font-size: 0.85rem; text-transform: uppercase; 
+    letter-spacing: 0.05em; font-weight: 600; 
+}
+
+/* Inputs y Selects */
 .modal-form input,
 .modal-form select { 
-    background: var(--bg-dark); 
+    background: #f8fafc; 
     border: 1px solid var(--border-color); 
     padding: 0.8rem; 
-    border-radius: 4px; 
+    border-radius: 8px; 
     color: var(--text-primary); 
     font-size: 1rem; 
     outline: none; 
-    transition: border-color 0.2s; 
+    transition: all 0.2s ease; 
 }
+
+.modal-form input::placeholder { 
+    color: #94a3b8; 
+}
+
 .modal-form input:focus,
 .modal-form select:focus { 
-    border-color: var(--accent-neon); 
+    border-color: var(--accent-blue); 
+    background: white; 
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15); 
 }
-/* Agregamos el cursor pointer solo para el select */
-.modal-form select {
-    cursor: pointer;
+
+.modal-form select { 
+    cursor: pointer; 
+}
+
+/* Contenedor de la foto de perfil */
+.profile-upload-container { 
+    grid-column: 1 / -1; 
+    display: flex; align-items: center; gap: 1rem; 
+    padding: 1rem; 
+    background: #f8fafc; 
+    border: 1px dashed var(--border-color); 
+    border-radius: 12px; 
+}
+
+#preview-img { 
+    width: 88px; height: 88px; border-radius: 16px; 
+    object-fit: cover; border: 2px solid var(--border-color); 
+    background: white; flex: 0 0 auto; 
+}
+
+.profile-upload-container label { 
+    display: block; margin-bottom: 0.35rem; 
+    color: var(--text-secondary); font-size: 0.92rem; font-weight: 500;
+}
+
+/* Botón de guardar */
+.modal-form button[type="submit"] { 
+    grid-column: 1 / -1; margin-top: 0.5rem; 
+    padding: 0.9rem 1rem; border-radius: 8px; font-size: 1rem; 
+}
+
+/* Diseño Responsive (Móviles) */
+@media (max-width: 720px) {
+    .modal-content { padding: 1rem; }
+    .modal-form { grid-template-columns: 1fr; }
+    .profile-upload-container { flex-direction: column; align-items: flex-start; }
 }
