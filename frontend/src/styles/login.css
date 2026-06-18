@@ -1,18 +1,19 @@
 /* frontend/src/styles/login.css */
+
 .login-layout {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-main); /* Usando el gris claro del tema global */
 }
 
 .login-box {
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(10, 16, 30, 0.99));
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--surface-light); /* Fondo blanco puro */
+    border: 1px solid var(--border-color);
     padding: 3rem 2.5rem;
-    border-radius: 18px;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md); /* Sombra suave de modo claro */
     width: 100%;
     max-width: 400px;
     text-align: center;
@@ -22,7 +23,8 @@
     color: var(--text-primary);
     margin-bottom: 0.5rem;
     font-size: 1.8rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
+    font-weight: 700;
 }
 
 .login-box p {
@@ -37,38 +39,45 @@
     gap: 1.25rem;
 }
 
+/* Estilo para los inputs idéntico al modal */
 .login-form input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
     color: var(--text-primary);
     padding: 0.9rem;
-    border-radius: 12px;
+    border-radius: 8px;
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.login-form input::placeholder {
+    color: #94a3b8;
 }
 
 .login-form input:focus {
-    border-color: var(--accent-neon);
-    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.12);
+    border-color: var(--accent-blue);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
 }
 
+/* Botón de ingreso */
 .login-btn {
-    background: transparent;
-    border: 1px solid var(--accent-neon);
-    color: var(--accent-neon);
+    background: var(--accent-blue);
+    border: none;
+    color: white;
     padding: 0.9rem;
-    border-radius: 12px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.2s ease;
     margin-top: 0.5rem;
 }
 
 .login-btn:hover {
-    background: var(--accent-neon);
-    color: var(--bg-dark);
+    background: var(--accent-hover);
+    transform: translateY(-1px);
 }
 
 .login-error {
@@ -76,4 +85,8 @@
     font-size: 0.85rem;
     margin-top: 1rem;
     display: none;
+    background-color: #fee2e2;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #fecaca;
 }

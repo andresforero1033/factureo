@@ -7,23 +7,16 @@
     <link rel="stylesheet" href="src/styles/style.css">
     <link rel="stylesheet" href="src/styles/login.css">
     <style>
-        /* Pequeño ajuste para el enlace de volver al login */
         .auth-link {
-            display: block;
-            margin-top: 1.5rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
+            display: block; margin-top: 1.5rem; 
+            color: var(--text-secondary); text-decoration: none; 
+            font-size: 0.9rem; transition: color 0.2s; text-align: center;
         }
-        .auth-link:hover {
-            color: var(--accent-neon);
-        }
+        .auth-link:hover { color: var(--accent-blue); }
         .success-message {
-            color: #10b981; /* Verde esmeralda para éxito */
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            display: none;
+            color: var(--success); font-size: 0.9rem; margin-top: 1rem;
+            display: none; background-color: #d1fae5; padding: 0.5rem;
+            border-radius: 6px; border: 1px solid #a7f3d0;
         }
     </style>
 </head>
@@ -41,7 +34,7 @@
             <button type="submit" class="login-btn">Crear Cuenta</button>
             
             <div id="register-error" class="login-error">Error al crear la cuenta</div>
-            <div id="register-success" class="success-message">¡Cuenta creada! Redirigiendo al login...</div>
+            <div id="register-success" class="success-message">¡Cuenta creada! Redirigiendo...</div>
         </form>
 
         <a href="login.html" class="auth-link">¿Ya tienes cuenta? Inicia sesión aquí</a>
@@ -64,13 +57,9 @@
             successDiv.style.display = 'none';
             
             try {
-                // Llamamos a la nueva función
                 await authService.register(user, email, pass);
-                
-                // Mostramos mensaje de éxito
                 successDiv.style.display = 'block';
                 
-                // Esperamos 2 segundos y lo enviamos al login para que entre
                 setTimeout(() => {
                     window.location.href = 'login.html';
                 }, 2000);
