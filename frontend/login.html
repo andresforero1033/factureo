@@ -6,6 +6,14 @@
     <title>Factureo | Autenticación</title>
     <link rel="stylesheet" href="src/styles/style.css">
     <link rel="stylesheet" href="src/styles/login.css">
+    <style>
+        .auth-link {
+            display: block; margin-top: 1.5rem; 
+            color: var(--text-secondary); text-decoration: none; 
+            font-size: 0.9rem; text-align: center; transition: color 0.2s;
+        }
+        .auth-link:hover { color: var(--accent-blue); }
+    </style>
 </head>
 <body class="login-layout">
     
@@ -19,27 +27,23 @@
             <button type="submit" class="login-btn">Ingresar</button>
             <div id="login-error" class="login-error">Usuario o contraseña incorrectos</div>
         </form>
-        <a href="register.html" class="auth-link" style="display: block; margin-top: 1.5rem; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; text-align: center;">¿No tienes cuenta? Regístrate aquí</a>
+        <a href="register.html" class="auth-link">¿No tienes cuenta? Regístrate aquí</a>
     </div>
 
     <script type="module">
         import { authService } from './src/services/authService.js';
 
         document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evita que la página recargue
+            e.preventDefault();
             
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
             const errorDiv = document.getElementById('login-error');
             
             try {
-                // Ejecutamos la petición al backend en Python
                 await authService.login(user, pass);
-                
-                // Si la promesa se resuelve (código 200), viajamos al index
                 window.location.href = 'index.html';
             } catch (error) {
-                // Si la promesa falla (error 400), mostramos la alerta roja
                 errorDiv.style.display = 'block';
                 errorDiv.textContent = error.message;
             }
